@@ -29,13 +29,14 @@
       color: #DC143C;
     }
     .nav-button {
-      background: transparent;
-      border: none;
-      padding: 0.5rem 0;
-      margin-right: 1.5rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: color 0.3s ease;
+      font-size: 1.125rem;
+      font-weight: 600;
+      padding:     0.75rem 0 !important;
+      background:  transparent;
+      border:      none;
+      margin-right:1.5rem;
+      cursor:      pointer;
+      transition:  color 0.3s ease;
     }
     .nav-button:hover,
     .nav-button.active {
@@ -50,43 +51,72 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    #site-title {
+      cursor: pointer;
+      transition: color 0.3s ease;
+      display: inline-block;
+    }
+    #site-title:hover {
+      color: #DC143C;
+    }
+
+    .publication-item {
+      margin-bottom: 1.5rem;
+    }
+    .pub-title {
+      cursor: pointer;
+    }
+    .publication-item .abstract {
+      display: none;
+      background: none;
+      border: none;
+      box-shadow: none;
+      color: inherit;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    .publication-item.open .abstract,
+    .publication-item.hovered .abstract {
+      display: block;
+    }
   </style>
 </head>
 <body class="antialiased">
 <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
 
-  <!-- Header Section -->
+  <!-- Header -->
   <header class="text-left mb-8">
-    <h1 class="text-5xl font-bold">Daniel Barta</h1>
-    <p class="text-xl mt-2">Electrical and Information Engineer</p>
-    <div class="mt-4 flex flex-wrap text-sm sm:text-base space-x-6">
-      <a href="mailto:daniel.barta@web.de">daniel.barta@web.de</a>
-      <span>|</span>
-      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <div id="masthead">
+      <h1 id="site-title" class="text-5xl font-bold">Daniel Barta</h1>
+      <p class="text-xl mt-2">Electrical, Software & Information Systems Engineer</p>
     </div>
-    <!-- Calls to Action -->
-    <div class="mt-6 flex flex-wrap text-base space-x-6">
-<!--      <a href="https://github.com/danielbarta" target="_blank" rel="noopener noreferrer" class="font-semibold">View My Work on GitHub</a>-->
-      <a
-        href="/assets/daniel_barta_cv.pdf"
-        target="_blank"
-        class="font-semibold"
-      >
-        View CV
-      </a>
-      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer" class="font-semibold">Connect on LinkedIn</a>
+    <div id="header-extras">
+      <div class="mt-4 flex flex-wrap text-sm sm:text-base space-x-6">
+        <a href="mailto:daniel.barta@web.de">daniel.barta@web.de</a>
+        <span>|</span>
+        <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="mt-6 flex flex-wrap text-base space-x-6">
+        <a href="/assets/daniel_barta_cv.pdf" target="_blank" class="font-semibold">View CV</a>
+        <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" class="font-semibold">Connect on LinkedIn</a>
+      </div>
     </div>
   </header>
 
-  <!-- "Front Paper" Profile Summary -->
-  <section class="text-left py-8 my-8">
+  <!-- About Me -->
+  <section id="about-me" class="text-left py-8 my-8">
     <h2 class="text-2xl font-bold mb-4">About Me</h2>
     <p class="max-w-2xl">
-      As an engineer passionate about pioneering new frontiers, I build and optimize complex systems at the intersection of quantum computing and artificial intelligence. My work focuses on leveraging generative models and neuro-symbolic AI to create efficient, quantum solutions and solve challenging real-world problems.
+      As an engineer driven by curiosity and innovation, I design, develop, and refine advanced systems that bridge the worlds of quantum computing and artificial intelligence. Whether architecting end-to-end machine-learning pipelines, prototyping quantum algorithms, or integrating neuro-symbolic reasoning modules, I thrive on translating abstract research into robust, real-world applications. By combining generative models with symbolic AI techniques, I’ve delivered solutions that accelerate problem-solving in domains ranging from autonomous systems to data-intensive simulations. Continuously exploring emerging technologies, I partner with cross-functional teams to push the boundaries of what’s possible—and to turn tomorrow’s breakthroughs into today’s impact.
     </p>
   </section>
 
-  <!-- Navigation Buttons -->
+  <!-- Overview button -->
+  <div class="mb-6">
+    <button class="nav-button overview-button hidden">Overview</button>
+  </div>
+
+  <!-- Navigation -->
   <nav class="flex flex-wrap justify-start gap-3 sm:gap-4 mb-12">
     <button class="nav-button" data-target="experience">Experience</button>
     <button class="nav-button" data-target="education">Education</button>
@@ -95,9 +125,9 @@
     <button class="nav-button" data-target="skills">Skills</button>
   </nav>
 
-  <!-- Content Sections Container -->
+  <!-- Content Sections -->
   <main id="content-container">
-    <!-- Professional Experience Section -->
+    <!-- Experience -->
     <section id="experience" class="content-section mb-12 text-left">
       <h2 class="section-title">Professional Experience</h2>
       <div class="space-y-8">
@@ -122,7 +152,7 @@
           </ul>
         </div>
         <div>
-          <h3 class="text-xl font-bold">Student Assistant - IT & EDV Support</h3>
+          <h3 class="text-xl font-bold">Student Assistant - IT &amp; EDV Support</h3>
           <p class="job-title">Ludwig-Maximilians-Universität Munich | Apr 2019 - Apr 2022</p>
           <ul class="list-disc list-inside mt-2 space-y-2">
             <li>Provided dedicated IT support, maintained systems, and assisted with troubleshooting, ensuring seamless operations within an academic environment.</li>
@@ -131,7 +161,7 @@
       </div>
     </section>
 
-    <!-- Education Section -->
+    <!-- Education -->
     <section id="education" class="content-section mb-12 text-left">
       <h2 class="section-title">Education</h2>
       <div class="space-y-4">
@@ -148,30 +178,60 @@
       </div>
     </section>
 
-    <!-- Publications Section -->
     <section id="publications" class="content-section mb-12 text-left">
       <h2 class="section-title">Publications</h2>
       <div class="space-y-4">
-        <div>
-          <h3 class="text-lg font-bold">First Author</h3>
-          <ul class="list-disc list-inside mt-2 space-y-2">
-            <li><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener noreferrer">
-              Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</a>, arXiv:2505.20863</li>
-          </ul>
+
+        <!-- Publication 1 -->
+        <div class="publication-item">
+          <p class="pub-title text-lg"><strong>Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</strong></p>
+          <div class="abstract">
+            Quantum computing holds immense potential, yet its practical success depends on multiple factors, including advances in quantum circuit design. In this paper, we introduce a generative approach based on denoising diffusion models (DMs) to synthesize parameterized quantum circuits (PQCs). Extending the recent diffusion model pipeline of Fürrutter et al., our model effectively conditions the synthesis process, enabling the simultaneous generation of circuit architectures and their continuous gate parameters. We demonstrate our approach in synthesizing PQCs optimized for generating high-fidelity Greenberger–Horne–Zeilinger (GHZ) states and achieving high accuracy in quantum machine learning (QML) classification tasks. Our results indicate a strong generalization across varying gate sets and scaling qubit counts, highlighting the versatility and computational efficiency of diffusion-based methods. This work illustrates the potential of generative models as a powerful tool for accelerating and optimizing the design of PQCs, supporting the development of more practical and scalable quantum applications.
+          </div>
+          <p class="authors">
+            <a href="index.html" >Daniel Barta</a>; Darya Martyniuk; Johannes Jung; Adrian Paschke
+          </p>
+          <p><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener">arXiv:2505.20863</a></p>
         </div>
-        <div>
-          <h3 class="text-lg font-bold">Co-author</h3>
-          <ul class="list-disc list-inside mt-2 space-y-2">
-            <li><a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener noreferrer">
-              Surrogate Benchmark for Quantum Architecture Search Using Graph Neural Networks</a>, arXiv:2506.06762</li>
-            <li><a href="https://doi.org/10.1007/978-3-031-72407-7_17" target="_blank" rel="noopener noreferrer">
-              Ensuring Rule Compliance in Autonomous Driving</a>, Springer, DOI:10.1007/978-3-031-72407-7_17</li>
-          </ul>
+
+        <!-- Publication 2 -->
+        <div class="publication-item">
+          <p class="pub-title text-lg"><strong>Benchmarking Quantum Architecture Search with Surrogate Assistance</strong></p>
+          <div class="abstract">
+            The development of quantum algorithms and their practical applications currently relies heavily on the efficient design, compilation, and optimization of quantum circuits. In particular, parameterized quantum circuits (PQCs), which serve as the basis for variational quantum algorithms (VQAs), demand carefully engineered architectures that balance performance with hardware constraints. Despite recent progress, identifying structural features of PQCs that enhance trainability, noise resilience, and overall algorithmic performance remains an active area of research. Addressing these challenges, quantum architecture search (QAS) aims to automate the design of problem-specific PQCs by systematically exploring circuit architectures to optimize algorithmic performance, often with varying degrees of consideration for hardware constraints. However, comparing QAS methods is challenging due to the absence of a unified benchmark evaluation pipeline and the high resource demands. In this paper, we present SQuASH, the Surrogate Quantum Architecture Search Helper, a benchmark that leverages surrogate models to enable uniform comparison of QAS methods and considerably accelerate their evaluation. We describe the methodology for creating a surrogate benchmark for QAS and demonstrate its capability to speed up both execution and comparison of QAS methods. We also release the code for integrating SQuASH into custom QAS workflows and the dataset used to train our surrogate models, facilitating reproducibility and further research.
+          </div>
+          <p class="authors">
+            Darya Martyniuk; Johannes Jung; <a href="index.html" >Daniel Barta</a>; Adrian Paschke
+          </p>
+          <p><a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener">arXiv:2506.06762</a></p>
         </div>
+
+        <!-- Publication 3 -->
+        <div class="publication-item">
+          <p class="pub-title text-lg"><strong>Legally-Guided Automated Decision-Making System Using Language Model Agents for Autonomous Driving</strong></p>
+          <div class="abstract">
+            Recent advances in language models have facilitated the development of agent-based systems. Despite their encouraging results in various reasoning tasks, these systems often operate as “black boxes,” raising concerns about potential illegal behavior due to opaque decision-making processes. This concern is particularly critical in autonomous driving, where precise decision making requires a thorough understanding of traffic scenes and strict adherence to established norms. In this paper, we propose a legally-guided automated decision-making system (LAD) that employs language models to dynamically retrieve facts for related rules through context-based query generation while delegating decision making to a symbolic solver. In our experiments, we demonstrate that this neuro-symbolic system, with a limited number of formalized traffic rules, provides a more accurate, interpretable, and traceable solution for rule-compliant decision making compared to pure language models.
+          </div>
+          <p class="authors">
+            Ya Wang; <a href="index.html" >Daniel Barta</a>; Julian Hesse; Philip Buchwald; Adrian Paschke
+          </p>
+          <p><a href="https://doi.org/10.1007/978-3-031-72407-7_17" target="_blank" rel="noopener">DOI:10.1007/978-3-031-72407-7_17</a></p>
+        </div>
+
       </div>
     </section>
 
-    <!-- Technical Skills Section -->
+
+
+    <!-- Projects -->
+    <section id="projects" class="content-section mb-12 text-left">
+      <h2 class="section-title">Projects</h2>
+      <div class="space-y-4">
+        <!-- Add your project entries here -->
+      </div>
+    </section>
+
+    <!-- Skills -->
     <section id="skills" class="content-section text-left">
       <h2 class="section-title">Technical Skills</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -180,7 +240,7 @@
           <p>Python (expert), MATLAB/Simulink (advanced), Java (intermediate), C++ (basic)</p>
         </div>
         <div>
-          <h3 class="text-lg font-bold mb-2">Machine Learning & AI</h3>
+          <h3 class="text-lg font-bold mb-2">Machine Learning &amp; AI</h3>
           <p>PyTorch, TensorFlow, Neuro-symbolic Systems</p>
         </div>
         <div>
@@ -188,7 +248,7 @@
           <p>Qiskit, PennyLane, Cirq, Quantum Circuit Synthesis, PQC Optimization</p>
         </div>
         <div>
-          <h3 class="text-lg font-bold mb-2">Tools & Technologies</h3>
+          <h3 class="text-lg font-bold mb-2">Tools &amp; Technologies</h3>
           <p>Git, Docker, Linux, Karma Framework, Federated Systems</p>
         </div>
         <div>
@@ -201,22 +261,58 @@
 </div>
 
 <script>
-  // Interactive Section Logic
-  const navButtons = document.querySelectorAll('.nav-button');
-  const contentSections = document.querySelectorAll('.content-section');
+  const headerExtras = document.getElementById('header-extras');
+  const aboutMe      = document.getElementById('about-me');
+  const navButtons   = document.querySelectorAll('.nav-button:not(.overview-button)');
+  const overviewBtn  = document.querySelector('.overview-button');
+  const contentSecs  = document.querySelectorAll('.content-section');
+  const siteTitle    = document.getElementById('site-title');
 
-  navButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const target = document.getElementById(button.dataset.target);
-      if (button.classList.contains('active')) {
-        button.classList.remove('active');
-        target.style.display = 'none';
-      } else {
-        navButtons.forEach(b => b.classList.remove('active'));
-        contentSections.forEach(sec => sec.style.display = 'none');
-        button.classList.add('active');
-        target.style.display = 'block';
+  // Section buttons logic
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('active')) {
+        overviewBtn.click();
+        return;
       }
+      headerExtras.style.display = 'none';
+      aboutMe.style.display      = 'none';
+      contentSecs.forEach(sec => sec.style.display = 'none');
+      navButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).style.display = 'block';
+      overviewBtn.classList.remove('hidden');
+    });
+  });
+
+  // Overview logic
+  overviewBtn.addEventListener('click', () => {
+    navButtons.forEach(b => b.classList.remove('active'));
+    overviewBtn.classList.add('hidden');
+    contentSecs.forEach(sec => sec.style.display = 'none');
+    headerExtras.style.display = 'block';
+    aboutMe.style.display      = 'block';
+  });
+
+  // Site title click = overview
+  siteTitle.addEventListener('click', () => overviewBtn.click());
+
+  // Publication title click toggle
+  document.querySelectorAll('.publication-item').forEach(item => {
+    const title = item.querySelector('.pub-title');
+    title.addEventListener('click', () => {
+      const isOpen = item.classList.toggle('open');
+      if (!isOpen) {
+        item.classList.remove('hovered');
+      }
+    });
+    title.addEventListener('mouseenter', () => {
+      if (!item.classList.contains('open')) {
+        item.classList.add('hovered');
+      }
+    });
+    title.addEventListener('mouseleave', () => {
+      item.classList.remove('hovered');
     });
   });
 </script>
