@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daniel Barta - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 1. Monospace “texttt”-style font */
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #FFFFFF;
+      /* 4. Brighter red */
+      color: #B22222;
+    }
+    .section-title {
+      border-bottom: 2px solid #B22222;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .job-title {
+      font-weight: 500;
+    }
+    a {
+      color: #B22222;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #DC143C;
+    }
+    /* 2. Nav buttons as text-only, no boxes */
+    .nav-button {
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0;
+      margin-right: 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .nav-button:hover,
+    .nav-button.active {
+      color: #DC143C;
+      text-decoration: underline;
+    }
+    .content-section {
+      display: none; /* Hidden by default */
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+<div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+
+  <!-- Header Section -->
+  <header class="text-left mb-8">
+    <h1 class="text-5xl font-bold">Daniel Barta</h1>
+    <p class="text-xl mt-2">Electrical and Information Engineer</p>
+    <div class="mt-4 flex flex-wrap text-sm sm:text-base space-x-6">
+      <a href="mailto:daniel.barta@web.de">daniel.barta@web.de</a>
+      <span>|</span>
+      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </header>
+
+  <!-- "Front Paper" Profile Summary -->
+  <section class="text-left py-8 my-8">
+    <h2 class="text-2xl font-bold mb-4">About Me</h2>
+    <p class="max-w-2xl">
+      I am an Electrical and Information Engineer specializing in the intersection of quantum computing, machine learning, and software development. With a passion for innovation, I have hands-on experience in developing generative AI models, creating neuro-symbolic reasoning systems, and building robust software solutions.
+    </p>
+  </section>
+
+  <!-- Navigation Buttons -->
+  <nav class="flex flex-wrap justify-start gap-3 sm:gap-4 mb-12">
+    <button class="nav-button" data-target="experience">Experience</button>
+    <button class="nav-button" data-target="education">Education</button>
+    <button class="nav-button" data-target="publications">Publications</button>
+    <button class="nav-button" data-target="skills">Skills</button>
+  </nav>
+
+  <!-- Content Sections Container -->
+  <main id="content-container">
+    <!-- Professional Experience Section -->
+    <section id="experience" class="content-section mb-12 text-left">
+      <h2 class="section-title">Professional Experience</h2>
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl font-bold">Working Student - Quantum Computing and AI</h3>
+          <p class="job-title">Fraunhofer FOKUS, Berlin | Mar 2023 - Present</p>
+          <ul class="list-disc list-inside mt-2 space-y-2">
+            <li><strong>Diffusion Models for Quantum Circuit Generation:</strong> Developed novel diffusion-based generative models for synthesizing parameterized quantum circuits (PQCs), achieving significant improvements in generating high-fidelity GHZ states and optimizing quantum machine learning workflows.</li>
+            <li><strong>Surrogate Benchmarking for Quantum Architectures:</strong> Introduced a surrogate model using Graph Neural Networks (GNNs) for assessing and benchmarking various quantum architecture configurations.</li>
+            <li><strong>Neuro-Symbolic Autonomous Decision Systems:</strong> Built symbolic reasoning components within neuro-symbolic frameworks for autonomous driving, ensuring compliance with complex legal and regulatory standards.</li>
+            <li><strong>Backend & Frontend Software Development:</strong> Designed and implemented a robust backend and frontend system leveraging the Karma framework for efficient JSON-to-RDF data mapping.</li>
+            <li><strong>Federated Database Search:</strong> Developed a federated search solution for simultaneous querying across multiple database systems, returning structured, actionable results.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Intern - Engine and Data Analytics</h3>
+          <p class="job-title">BMW Group, Munich | Mar 2022 - Aug 2022</p>
+          <ul class="list-disc list-inside mt-2 space-y-2">
+            <li>Engineered automated model verification processes, significantly enhancing testing efficiency and accuracy.</li>
+            <li>Updated and optimized engine database structures for improved data retrieval and analysis.</li>
+            <li>Conducted comprehensive analyses of driving behavior using Python and MATLAB, employing advanced algorithms from game theory and oversampling strategies.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Student Assistant - IT & EDV Support</h3>
+          <p class="job-title">Ludwig-Maximilians-Universität Munich | Apr 2019 - Apr 2022</p>
+          <ul class="list-disc list-inside mt-2 space-y-2">
+            <li>Provided dedicated IT support, maintained systems, and assisted with troubleshooting, ensuring seamless operations within an academic environment.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="content-section mb-12 text-left">
+      <h2 class="section-title">Education</h2>
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-bold">Master of Science in Electrical and Information Engineering</h3>
+          <p>Technische Universität Berlin | Sep 2022 - Aug 2025</p>
+          <p><em>Specialization:</em> Quantum Computing, Machine Learning, Optimization, and Communication Systems.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Bachelor of Science in Electrical and Information Engineering</h3>
+          <p>Technische Universität München | Oct 2017 - Aug 2022</p>
+          <p><em>Thesis:</em> "One-Bit Channel Estimation with Generative Adversarial Networks."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="content-section mb-12 text-left">
+      <h2 class="section-title">Publications</h2>
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-lg font-bold">First Author</h3>
+          <ul class="list-disc list-inside mt-2 space-y-2">
+            <li><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener noreferrer">
+              Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</a>, arXiv:2505.20863</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold">Co-author</h3>
+          <ul class="list-disc list-inside mt-2 space-y-2">
+            <li><a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener noreferrer">
+              Surrogate Benchmark for Quantum Architecture Search Using Graph Neural Networks</a>, arXiv:2506.06762</li>
+            <li><a href="https://doi.org/10.1007/978-3-031-72407-7_17" target="_blank" rel="noopener noreferrer">
+              Ensuring Rule Compliance in Autonomous Driving</a>, Springer, DOI:10.1007/978-3-031-72407-7_17</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="content-section text-left">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-bold mb-2">Programming</h3>
+          <p>Python (expert), MATLAB/Simulink (advanced), Java (intermediate), C++ (basic)</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Machine Learning & AI</h3>
+          <p>PyTorch, TensorFlow, Neuro-symbolic Systems</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Quantum Computing</h3>
+          <p>Qiskit, PennyLane, Cirq, Quantum Circuit Synthesis, PQC Optimization</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Tools & Technologies</h3>
+          <p>Git, Docker, Linux, Karma Framework, Federated Systems</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Languages</h3>
+          <p>German (native), English (fluent), Romanian (B2), Italian (B1)</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Interactive Section Logic
+  const navButtons = document.querySelectorAll('.nav-button');
+  const contentSections = document.querySelectorAll('.content-section');
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = document.getElementById(button.dataset.target);
+      if (button.classList.contains('active')) {
+        button.classList.remove('active');
+        target.style.display = 'none';
+      } else {
+        navButtons.forEach(b => b.classList.remove('active'));
+        contentSections.forEach(sec => sec.style.display = 'none');
+        button.classList.add('active');
+        target.style.display = 'block';
+      }
+    });
+  });
+</script>
+</body>
+</html>
