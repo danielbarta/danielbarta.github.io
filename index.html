@@ -178,12 +178,12 @@
       <div class="space-y-4">
         <div>
           <h3 class="text-xl font-bold">Master of Science in Electrical and Information Engineering</h3>
-          <p>Technische Universität Berlin | Sep 2022 - Aug 2025</p>
+          <p>Technical University Berlin | Sep 2022 - Aug 2025</p>
           <p><em>Specialization:</em> Quantum Computing, Machine Learning, Optimization, and Communication Systems.</p>
         </div>
         <div>
           <h3 class="text-xl font-bold">Bachelor of Science in Electrical and Information Engineering</h3>
-          <p>Technische Universität München | Oct 2017 - Aug 2022</p>
+          <p>Technical University Munich | Oct 2017 - Aug 2022</p>
           <p><em>Thesis:</em> "One-Bit Channel Estimation with Generative Adversarial Networks."</p>
         </div>
       </div>
@@ -191,54 +191,72 @@
 
     <section id="publications" class="content-section mb-12 text-left">
       <h2 class="section-title">Publications</h2>
-      <div class="space-y-4">
+      <div class="space-y-6">
 
-        <!-- Publication 1 -->
-        <div class="publication-item">
-          <p class="pub-title text-lg"><strong>Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</strong></p>
-          <div class="abstract">
-            Quantum computing holds immense potential, yet its practical success depends on multiple factors, including advances in quantum circuit design. In this paper, we introduce a generative approach based on denoising diffusion models (DMs) to synthesize parameterized quantum circuits (PQCs). Extending the recent diffusion model pipeline of Fürrutter et al., our model effectively conditions the synthesis process, enabling the simultaneous generation of circuit architectures and their continuous gate parameters. We demonstrate our approach in synthesizing PQCs optimized for generating high-fidelity Greenberger–Horne–Zeilinger (GHZ) states and achieving high accuracy in quantum machine learning (QML) classification tasks. Our results indicate a strong generalization across varying gate sets and scaling qubit counts, highlighting the versatility and computational efficiency of diffusion-based methods. This work illustrates the potential of generative models as a powerful tool for accelerating and optimizing the design of PQCs, supporting the development of more practical and scalable quantum applications.
+        <!-- Conference Papers -->
+        <div>
+          <h3 class="text-xl font-semibold mb-2">Conference Papers</h3>
+          <div class="space-y-4">
+
+            <!-- Publication 1 -->
+            <div class="publication-item">
+              <p class="pub-title text-lg"><strong>Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</strong></p>
+              <p class="italic">Accepted at IEEE QCE ’25</p>
+              <div class="abstract">
+                Quantum computing holds immense potential, yet its practical success depends on multiple factors, including advances in quantum circuit design. In this paper, we introduce a generative approach based on denoising diffusion models (DMs) to synthesize parameterized quantum circuits (PQCs). Extending the recent diffusion model pipeline of Fürrutter et al., our model effectively conditions the synthesis process, enabling the simultaneous generation of circuit architectures and their continuous gate parameters. We demonstrate our approach in synthesizing PQCs optimized for generating high-fidelity Greenberger–Horne–Zeilinger (GHZ) states and achieving high accuracy in quantum machine learning (QML) classification tasks. Our results indicate a strong generalization across varying gate sets and scaling qubit counts, highlighting the versatility and computational efficiency of diffusion-based methods. This work illustrates the potential of generative models as a powerful tool for accelerating and optimizing the design of PQCs, supporting the development of more practical and scalable quantum applications.
+              </div>
+              <p class="authors">
+                <a href="index.html">Daniel Barta</a>; Darya Martyniuk; Johannes Jung; Adrian Paschke
+              </p>
+              <p><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener">arXiv:2505.20863</a></p>
+            </div>
+
+            <!-- Publication 2 -->
+            <div class="publication-item">
+              <p class="pub-title text-lg"><strong>Surrogate Benchmark for Quantum Architecture Search</strong></p>
+              <p class="italic">Under review</p>
+              <div class="abstract">
+                The development of quantum algorithms and their practical applications currently relies heavily on the efficient design, compilation, and optimization of quantum circuits. In particular, parameterized quantum circuits (PQCs), which serve as the basis for variational quantum algorithms (VQAs), demand carefully engineered architectures that balance performance with hardware constraints. Despite recent progress, identifying structural features of PQCs that enhance trainability, noise resilience, and overall algorithmic performance remains an active area of research. Addressing these challenges, quantum architecture search (QAS) aims to automate the design of problem-specific PQCs by systematically exploring circuit architectures to optimize algorithmic performance, often with varying degrees of consideration for hardware constraints. However, comparing QAS methods is challenging due to the absence of a unified benchmark evaluation pipeline and the high resource demands. In this paper, we present SQuASH, the Surrogate Quantum Architecture Search Helper, a benchmark that leverages surrogate models to enable uniform comparison of QAS methods and considerably accelerate their evaluation. We describe the methodology for creating a surrogate benchmark for QAS and demonstrate its capability to speed up both execution and comparison of QAS methods. We also release the code for integrating SQuASH into custom QAS workflows and the dataset used to train our surrogate models, facilitating reproducibility and further research.
+              </div>
+              <p class="authors">
+                Darya Martyniuk; Johannes Jung; <a href="index.html">Daniel Barta</a>; Adrian Paschke
+              </p>
+              <p><a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener">arXiv:2506.06762</a></p>
+              <p>
+                GitHub repository:
+                <a href="https://github.com/SQuASH-bench/SQuASH" target="_blank" rel="noopener noreferrer">
+                  https://github.com/SQuASH-bench/SQuASH
+                </a>
+              </p>
+            </div>
+
           </div>
-          <p class="authors">
-            <a href="index.html" >Daniel Barta</a>; Darya Martyniuk; Johannes Jung; Adrian Paschke
-          </p>
-          <p><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener">arXiv:2505.20863</a></p>
         </div>
 
-        <!-- Publication 2 -->
-        <div class="publication-item">
-          <p class="pub-title text-lg"><strong>Benchmarking Quantum Architecture Search with Surrogate Assistance</strong></p>
-          <div class="abstract">
-            The development of quantum algorithms and their practical applications currently relies heavily on the efficient design, compilation, and optimization of quantum circuits. In particular, parameterized quantum circuits (PQCs), which serve as the basis for variational quantum algorithms (VQAs), demand carefully engineered architectures that balance performance with hardware constraints. Despite recent progress, identifying structural features of PQCs that enhance trainability, noise resilience, and overall algorithmic performance remains an active area of research. Addressing these challenges, quantum architecture search (QAS) aims to automate the design of problem-specific PQCs by systematically exploring circuit architectures to optimize algorithmic performance, often with varying degrees of consideration for hardware constraints. However, comparing QAS methods is challenging due to the absence of a unified benchmark evaluation pipeline and the high resource demands. In this paper, we present SQuASH, the Surrogate Quantum Architecture Search Helper, a benchmark that leverages surrogate models to enable uniform comparison of QAS methods and considerably accelerate their evaluation. We describe the methodology for creating a surrogate benchmark for QAS and demonstrate its capability to speed up both execution and comparison of QAS methods. We also release the code for integrating SQuASH into custom QAS workflows and the dataset used to train our surrogate models, facilitating reproducibility and further research.
-          </div>
-          <p class="authors">
-            Darya Martyniuk; Johannes Jung; <a href="index.html" >Daniel Barta</a>; Adrian Paschke
-          </p>
-          <p><a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener">arXiv:2506.06762</a></p>
-          <p>
-              GitHub repository:
-            <a href="https://github.com/SQuASH-bench/SQuASH"
-               target="_blank"
-               rel="noopener noreferrer">
-              SQuASH
-            </a>
-          </p>
-        </div>
+        <!-- Journal / Book Chapters -->
+        <div>
+          <h3 class="text-xl font-semibold mb-2">Journal / Book Chapters</h3>
+          <div class="space-y-4">
 
-        <!-- Publication 3 -->
-        <div class="publication-item">
-          <p class="pub-title text-lg"><strong>Legally-Guided Automated Decision-Making System Using Language Model Agents for Autonomous Driving</strong></p>
-          <div class="abstract">
-            Recent advances in language models have facilitated the development of agent-based systems. Despite their encouraging results in various reasoning tasks, these systems often operate as “black boxes,” raising concerns about potential illegal behavior due to opaque decision-making processes. This concern is particularly critical in autonomous driving, where precise decision making requires a thorough understanding of traffic scenes and strict adherence to established norms. In this paper, we propose a legally-guided automated decision-making system (LAD) that employs language models to dynamically retrieve facts for related rules through context-based query generation while delegating decision making to a symbolic solver. In our experiments, we demonstrate that this neuro-symbolic system, with a limited number of formalized traffic rules, provides a more accurate, interpretable, and traceable solution for rule-compliant decision making compared to pure language models.
+            <!-- Publication 3 -->
+            <div class="publication-item">
+              <p class="pub-title text-lg"><strong>Ensuring Rule Compliance in Autonomous Driving</strong></p>
+              <div class="abstract">
+                Recent advances in language models have facilitated the development of agent-based systems. Despite their encouraging results in various reasoning tasks, these systems often operate as “black boxes,” raising concerns about potential illegal behavior due to opaque decision-making processes. This concern is particularly critical in autonomous driving, where precise decision making requires a thorough understanding of traffic scenes and strict adherence to established norms. In this paper, we propose a legally-guided automated decision-making system (LAD) that employs language models to dynamically retrieve facts for related rules through context-based query generation while delegating decision making to a symbolic solver. In our experiments, we demonstrate that this neuro-symbolic system, with a limited number of formalized traffic rules, provides a more accurate, interpretable, and traceable solution for rule-compliant decision making compared to pure language models.
+              </div>
+              <p class="italic">In Lecture Notes in Computer Science (Springer), 2025</p>
+              <p class="authors">
+                Ya Wang; <a href="index.html">Daniel Barta</a>; Julian Hesse; Philip Buchwald; Adrian Paschke
+              </p>
+              <p><a href="https://doi.org/10.1007/978-3-031-72407-7_17" target="_blank" rel="noopener">DOI:10.1007/978-3-031-72407-7_17</a></p>
+            </div>
+
           </div>
-          <p class="authors">
-            Ya Wang; <a href="index.html" >Daniel Barta</a>; Julian Hesse; Philip Buchwald; Adrian Paschke
-          </p>
-          <p><a href="https://doi.org/10.1007/978-3-031-72407-7_17" target="_blank" rel="noopener">DOI:10.1007/978-3-031-72407-7_17</a></p>
         </div>
 
       </div>
     </section>
+
 
 
 
