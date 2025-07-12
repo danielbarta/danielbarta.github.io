@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Daniel Barta - Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* 1. Monospace “texttt”-style font */
     body {
       font-family: 'Courier New', Courier, monospace;
       background-color: #FFFFFF;
-      /* 4. Brighter red */
       color: #B22222;
     }
     .section-title {
@@ -30,7 +28,6 @@
     a:hover {
       color: #DC143C;
     }
-    /* 2. Nav buttons as text-only, no boxes */
     .nav-button {
       background: transparent;
       border: none;
@@ -46,7 +43,7 @@
       text-decoration: underline;
     }
     .content-section {
-      display: none; /* Hidden by default */
+      display: none;
       animation: fadeIn 0.5s ease-in-out;
     }
     @keyframes fadeIn {
@@ -67,13 +64,19 @@
       <span>|</span>
       <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
+    <!-- Calls to Action -->
+    <div class="mt-6 flex flex-wrap text-base space-x-6">
+<!--      <a href="https://github.com/danielbarta" target="_blank" rel="noopener noreferrer" class="font-semibold">View My Work on GitHub</a>-->
+      <a href="/Daniel_Barta_CV.pdf" download class="font-semibold">Download CV</a>
+      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener noreferrer" class="font-semibold">Connect on LinkedIn</a>
+    </div>
   </header>
 
   <!-- "Front Paper" Profile Summary -->
   <section class="text-left py-8 my-8">
     <h2 class="text-2xl font-bold mb-4">About Me</h2>
     <p class="max-w-2xl">
-      I am an Electrical and Information Engineer specializing in the intersection of quantum computing, machine learning, and software development. With a passion for innovation, I have hands-on experience in developing generative AI models, creating neuro-symbolic reasoning systems, and building robust software solutions.
+      As an engineer passionate about pioneering new frontiers, I build and optimize complex systems at the intersection of quantum computing and artificial intelligence. My work focuses on leveraging generative models and neuro-symbolic AI to create efficient, quantum solutions and solve challenging real-world problems.
     </p>
   </section>
 
@@ -82,6 +85,7 @@
     <button class="nav-button" data-target="experience">Experience</button>
     <button class="nav-button" data-target="education">Education</button>
     <button class="nav-button" data-target="publications">Publications</button>
+    <button class="nav-button" data-target="projects">Projects</button>
     <button class="nav-button" data-target="skills">Skills</button>
   </nav>
 
