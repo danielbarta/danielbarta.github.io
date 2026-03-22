@@ -222,22 +222,23 @@ strong { font-weight: 700; }
     opacity: 0.55;
   }
 
-  /* orb sits in the middle of the screen — push bio & nav down */
+  /* orb sits in the middle of the screen — push nav down */
   .hero-bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 32px;
-    margin-top: auto;
-    padding-bottom: 32px;
+    gap: 0;
+    margin-top: 0;
+    padding-bottom: 36px;
   }
 
-  /* orb takes up the middle third — achieved via spacer */
+  /* orb takes up the middle — spacer clears it fully */
   .orb-spacer {
     display: block;
-    height: 38vh;   /* pushes content past where orb lives */
+    height: 62vw;   /* = orb diameter (2 * 28vw) + 6vw breathing room */
+    flex-shrink: 0;
   }
 
-  .hero-bio { max-width: 100%; font-size: 0.85rem; }
+  .hero-bio { display: none; }
   .hero-bio strong { font-size: 0.58rem; }
 
   /* nav: row of labels, centred, all visible at once */
@@ -283,8 +284,7 @@ strong { font-weight: 700; }
     <div>
       <div class="hero-name" onclick="closePanel()">Daniel Barta</div>
       <div class="hero-role">
-        Electrical, Software &amp; Information Systems Engineer<br>
-        Quantum Computing · Machine Learning · Neuro-Symbolic AI
+        Data Scientist at IBM
       </div>
     </div>
     <div class="hero-contacts">
@@ -300,8 +300,7 @@ strong { font-weight: 700; }
   <div class="hero-bottom">
     <div class="hero-bio">
       <strong>About</strong>
-      As an engineer driven by curiosity and innovation, I design and refine advanced systems bridging quantum computing and artificial intelligence — from diffusion-based circuit synthesis to neuro-symbolic autonomous decision frameworks. I thrive on translating abstract research into robust, real-world impact.
-    </div>
+Data Scientist at IBM, working on cutting-edge AI projects at the intersection of research and industry. My background spans electrical engineering, quantum computing, and applied machine learning. I am passionate about turning rigorous research into scalable, real-world solutions.    </div>
     <div class="orb-nav">
       <span class="cycling-label" id="lbl0" onclick="openPanel('experience')">Experience</span>
       <span class="cycling-label" id="lbl1" onclick="openPanel('publications')">Publications</span>
@@ -466,7 +465,7 @@ document.getElementById('backdrop').addEventListener('click', closePanel);
     CX = W/2; CY = H/2;
     isMobile = W <= 600;
     // on mobile orb is slightly larger relative to screen
-    R = Math.min(W, H) * (isMobile ? 0.38 : 0.33);
+    R = Math.min(W, H) * (isMobile ? 0.28 : 0.33);
   }
   resize();
   window.addEventListener('resize', resize);
