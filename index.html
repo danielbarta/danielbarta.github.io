@@ -124,45 +124,40 @@ a:hover { color: var(--red2); text-decoration: underline; }
 }
 .cycling-label {
   display: block;
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
+  font-size: 0.82rem;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--red);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  cursor: default;
+  opacity: 0.22;
+  transition: opacity 0.45s ease, letter-spacing 0.3s ease;
+  cursor: pointer;
   user-select: none;
   line-height: 1;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  position: relative;
+  pointer-events: all;
 }
-.cycling-label.visible {
-  opacity: 0.7;
-  cursor: pointer;
-}
-.cycling-label.visible:hover {
-  opacity: 1;
-}
-/* animated underline on visible label */
-.cycling-label.visible::after {
+.cycling-label::after {
   content: '';
   display: block;
   height: 1px;
   background: var(--red);
   width: 0;
-  transition: width 0.3s ease;
-  margin-top: 3px;
+  transition: width 0.35s ease;
+  margin-top: 4px;
   margin-left: auto;
 }
-.cycling-label.visible:hover::after { width: 100%; }
-
-.orb-hint {
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.3;
-  margin-top: 8px;
-  text-align: right;
+.cycling-label.visible {
+  opacity: 1;
+  letter-spacing: 0.26em;
+  cursor: pointer;
 }
+.cycling-label.visible::after { width: 100%; }
+.cycling-label:hover {
+  opacity: 1 !important;
+  letter-spacing: 0.26em;
+}
+.cycling-label:hover::after { width: 100%; }
 
 /* ─────────────────────────────
    CONTENT PANEL  (slides in from right)
@@ -322,7 +317,7 @@ strong { font-weight: 700; }
       </div>
     </div>
     <div class="hero-contacts">
-      <a href="mailto:daniel.barta@web.de">daniel.barta@web.de</a><br>
+      <a href="/cdn-cgi/l/email-protection#88ece9e6e1ede4a6eae9fafce9c8ffedeaa6eced"><span class="__cf_email__" data-cfemail="7511141b1c10195b1714070114350210175b1110">[email&#160;protected]</span></a><br>
       <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener">LinkedIn</a>
       &nbsp;·&nbsp;
       <a href="/assets/daniel_barta_cv.pdf" target="_blank">CV</a>
@@ -340,7 +335,6 @@ strong { font-weight: 700; }
       <span class="cycling-label" id="lbl1" data-target="publications">Publications</span>
       <span class="cycling-label" id="lbl2" data-target="education">Education</span>
       <span class="cycling-label" id="lbl3" data-target="skills">Skills</span>
-      <div class="orb-hint">click to explore</div>
     </div>
   </div>
 </div>
@@ -468,7 +462,7 @@ strong { font-weight: 700; }
 </div>
 
 <!-- ORB ENGINE -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   const canvas = document.getElementById('orb-canvas');
   const ctx = canvas.getContext('2d');
@@ -494,39 +488,57 @@ strong { font-weight: 700; }
   function spawn(){ pulses.push({o:Math.floor(Math.random()*N), age:0}); }
   spawn(); setInterval(spawn, 2000);
 
-  // mouse parallax
-  let mx=0, my=0;
+  // mouse parallax — stronger
+  let mx=0, my=0, tmx=0, tmy=0;
   window.addEventListener('mousemove', e=>{
-    mx = (e.clientX/window.innerWidth  - 0.5) * 0.18;
-    my = (e.clientY/window.innerHeight - 0.5) * 0.12;
+    tmx = (e.clientX/window.innerWidth  - 0.5) * 0.75;
+    tmy = (e.clientY/window.innerHeight - 0.5) * 0.50;
   });
 
   let rotY=0, tRotY=0;
   const ry3=(x,y,z,a)=>{const c=Math.cos(a),s=Math.sin(a);return{x:c*x+s*z,y,z:-s*x+c*z};};
   const rx3=(x,y,z,a)=>{const c=Math.cos(a),s=Math.sin(a);return{x,y:c*y-s*z,z:s*y+c*z};};
 
-  // label cycling
+  // label cycling — hover-aware, restarts from hovered item
   const lbls=[0,1,2,3].map(i=>document.getElementById('lbl'+i));
-  let li=0; lbls[0].classList.add('visible');
-  setInterval(()=>{
-    lbls[li].classList.remove('visible');
-    li=(li+1)%4;
-    lbls[li].classList.add('visible');
-  }, 2000);
+  let li=0, paused=false, cycleTimer=null;
 
-  lbls.forEach(lbl=>{
-    lbl.addEventListener('click',()=>{
-      if(!lbl.classList.contains('visible')) return;
-      window.__openSection(lbl.dataset.target);
+  function setActive(i){
+    lbls.forEach(l=>l.classList.remove('visible'));
+    lbls[i].classList.add('visible');
+    li=i;
+  }
+  setActive(0);
+
+  function startCycle(){
+    clearInterval(cycleTimer);
+    cycleTimer=setInterval(()=>{
+      if(!paused) setActive((li+1)%4);
+    },2000);
+  }
+  startCycle();
+
+  lbls.forEach((lbl,i)=>{
+    lbl.addEventListener('mouseenter',()=>{
+      paused=true;
+      setActive(i);
     });
+    lbl.addEventListener('mouseleave',()=>{
+      paused=false;
+      // restart timer from this index so next step is li+1
+      startCycle();
+    });
+
   });
 
   let last=performance.now();
   function draw(ts){
     const dt=(ts-last)/1000; last=ts;
+    mx += (tmx - mx) * Math.min(1, dt*5);
+    my += (tmy - my) * Math.min(1, dt*5);
     tRotY += dt*0.20;
-    rotY += (tRotY + mx - rotY) * Math.min(1, dt*3);
-    const rX = 0.14 + my + Math.sin(ts*0.00022)*0.08;
+    rotY += (tRotY + mx - rotY) * Math.min(1, dt*4);
+    const rX = 0.14 + my + Math.sin(ts*0.00022)*0.06;
 
     for(let i=pulses.length-1;i>=0;i--){
       pulses[i].age+=dt*0.28;
@@ -621,6 +633,14 @@ strong { font-weight: 700; }
 
   window.__openSection = openPanel;
 
+  // Wire label clicks here where openPanel is defined
+  document.querySelectorAll('.cycling-label').forEach(lbl => {
+    lbl.addEventListener('click', () => {
+      const target = lbl.getAttribute('data-target');
+      if(target) openPanel(target);
+    });
+  });
+
   closeBtn.addEventListener('click', closePanel);
   backdrop.addEventListener('click', closePanel);
   siteTitle.addEventListener('click', closePanel);
@@ -628,11 +648,4 @@ strong { font-weight: 700; }
   // pub abstract hover/click
   document.querySelectorAll('.pub-item').forEach(item=>{
     const t=item.querySelector('.pub-title');
-    t.addEventListener('click',()=>{ const o=item.classList.toggle('open'); if(!o) item.classList.remove('hov'); });
-    t.addEventListener('mouseenter',()=>{ if(!item.classList.contains('open')) item.classList.add('hov'); });
-    t.addEventListener('mouseleave',()=>item.classList.remove('hov'));
-  });
-</script>
-
-</body>
-</html>
+    t.addEventListener('click',()=>{ const o=item.classList.toggle('open'); if(!o) item.
