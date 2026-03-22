@@ -6,14 +6,12 @@
 <title>Daniel Barta</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --red:   #B22222;
   --red2:  #DC143C;
   --faint: rgba(178,34,34,0.12);
   --font:  'Aptos','Aptos Display',Calibri,'Segoe UI',system-ui,sans-serif;
 }
-
 html, body {
   width: 100%; height: 100%;
   overflow: hidden;
@@ -22,215 +20,128 @@ html, body {
   color: var(--red);
   -webkit-font-smoothing: antialiased;
 }
-
 a { color: var(--red); text-decoration: none; }
 a:hover { color: var(--red2); text-decoration: underline; }
 
-/* ─────────────────────────────
-   ORB  (fixed background)
-───────────────────────────── */
+/* ── canvas background ── */
 #orb-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
 }
 
-/* ─────────────────────────────
-   HERO  (full-viewport layer)
-───────────────────────────── */
+/* ── hero ── */
 #hero {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
+  position: fixed; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
   justify-content: space-between;
   padding: 44px 52px;
-  pointer-events: none;
   transition: opacity 0.6s ease, transform 0.7s cubic-bezier(.22,1,.36,1);
 }
-#hero.out {
-  opacity: 0;
-  transform: translateY(-18px);
-  pointer-events: none;
-}
+#hero.out { opacity: 0; transform: translateY(-18px); pointer-events: none; }
 
-/* top row */
-.hero-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
+
 .hero-name {
   font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  color: var(--red);
-  pointer-events: all;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+  cursor: pointer; transition: opacity 0.2s;
 }
-.hero-name:hover { opacity: 0.7; }
-.hero-role {
-  font-size: 0.82rem;
-  opacity: 0.55;
-  margin-top: 7px;
-  letter-spacing: 0.01em;
-  line-height: 1.5;
-}
+.hero-name:hover { opacity: 0.6; }
+.hero-role { font-size: 0.82rem; opacity: 0.5; margin-top: 7px; line-height: 1.55; }
 
-.hero-contacts {
-  text-align: right;
-  font-size: 0.78rem;
-  opacity: 0.6;
-  line-height: 1.9;
-  pointer-events: all;
-}
-.hero-contacts a { color: var(--red); transition: opacity 0.2s; }
-.hero-contacts a:hover { opacity: 0.5; text-decoration: none; }
+.hero-contacts { text-align: right; font-size: 0.78rem; opacity: 0.55; line-height: 2; }
+.hero-contacts a { color: var(--red); }
+.hero-contacts a:hover { opacity: 0.6; text-decoration: none; }
 
-/* bottom row */
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.hero-bio {
-  max-width: 420px;
-  font-size: 0.88rem;
-  line-height: 1.82;
-  opacity: 0.62;
-}
+.hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+
+.hero-bio { max-width: 400px; font-size: 0.87rem; line-height: 1.82; opacity: 0.6; }
 .hero-bio strong {
-  display: block;
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.6;
-  margin-bottom: 10px;
-  font-weight: 700;
+  display: block; font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; opacity: 0.55; margin-bottom: 10px;
 }
 
-/* cycling label — the nav */
-.orb-nav {
-  text-align: right;
-  pointer-events: all;
-  min-width: 160px;
-}
+/* ── nav labels ── */
+.orb-nav { text-align: right; min-width: 160px; }
+
 .cycling-label {
   display: block;
-  font-size: 0.82rem;
-  letter-spacing: 0.20em;
+  font-size: 0.82rem; letter-spacing: 0.20em;
   text-transform: uppercase;
-  color: var(--red);
   opacity: 0.22;
   transition: opacity 0.45s ease, letter-spacing 0.3s ease;
   cursor: pointer;
   user-select: none;
-  line-height: 1;
-  margin-bottom: 10px;
+  line-height: 1; margin-bottom: 10px;
   position: relative;
-  pointer-events: all;
 }
 .cycling-label::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background: var(--red);
-  width: 0;
+  content: ''; display: block; height: 1px;
+  background: var(--red); width: 0;
   transition: width 0.35s ease;
-  margin-top: 4px;
-  margin-left: auto;
+  margin-top: 4px; margin-left: auto;
 }
-.cycling-label.visible {
-  opacity: 1;
-  letter-spacing: 0.26em;
-  cursor: pointer;
-}
+.cycling-label.visible { opacity: 1; letter-spacing: 0.26em; }
 .cycling-label.visible::after { width: 100%; }
-.cycling-label:hover {
-  opacity: 1 !important;
-  letter-spacing: 0.26em;
-}
+.cycling-label:hover { opacity: 1 !important; letter-spacing: 0.26em; }
 .cycling-label:hover::after { width: 100%; }
 
-/* ─────────────────────────────
-   CONTENT PANEL  (slides in from right)
-───────────────────────────── */
+/* ── backdrop ── */
+#backdrop {
+  position: fixed; inset: 0; z-index: 3;
+  background: rgba(255,255,255,0);
+  pointer-events: none;
+  transition: background 0.7s ease;
+}
+#backdrop.dim { background: rgba(255,255,255,0.45); pointer-events: all; cursor: pointer; }
+
+/* ── panel ── */
 #panel {
-  position: fixed;
-  top: 0; right: 0;
-  width: min(580px, 100vw);
-  height: 100%;
-  z-index: 10;
+  position: fixed; top: 0; right: 0; z-index: 10;
+  width: min(580px, 100vw); height: 100%;
   background: #fff;
   border-left: 1px solid var(--faint);
   transform: translateX(100%);
   transition: transform 0.7s cubic-bezier(.22,1,.36,1);
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--faint) transparent;
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: thin; scrollbar-color: var(--faint) transparent;
 }
-#panel.open {
-  transform: translateX(0);
-}
+#panel.open { transform: translateX(0); }
 
-.panel-inner {
-  padding: 48px 52px 80px;
-}
-
-/* panel header */
+.panel-inner { padding: 48px 52px 80px; }
 .panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 52px;
 }
 .panel-section-name {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  opacity: 0.45;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.45;
 }
 .panel-close {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--red);
-  font-family: var(--font);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.4;
-  padding: 4px 0;
-  transition: opacity 0.2s;
+  background: none; border: none; cursor: pointer;
+  color: var(--red); font-family: var(--font);
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0.4; padding: 4px 0; transition: opacity 0.2s;
 }
 .panel-close:hover { opacity: 1; }
 
-/* content sections inside panel */
 .content-section { display: none; }
-.content-section.visible { display: block; }
+.content-section.visible { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* experience */
-.exp-item {
-  padding-bottom: 36px;
-  margin-bottom: 36px;
-  border-bottom: 1px solid var(--faint);
-}
+.exp-item { padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--faint); }
 .exp-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
 .exp-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 3px; line-height: 1.3; }
 .exp-meta { font-size: 0.75rem; opacity: 0.5; margin-bottom: 14px; }
 .exp-item ul { list-style: none; }
 .exp-item ul li {
   font-size: 0.84rem; opacity: 0.72;
-  padding: 5px 0 5px 16px; position: relative; line-height: 1.6;
+  padding: 5px 0 5px 14px; position: relative; line-height: 1.6;
 }
 .exp-item ul li::before {
   content: ''; position: absolute; left: 0; top: 14px;
@@ -248,8 +159,7 @@ strong { font-weight: 700; }
 /* publications */
 .pub-category {
   font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em;
-  text-transform: uppercase; opacity: 0.35;
-  margin: 36px 0 18px;
+  text-transform: uppercase; opacity: 0.35; margin: 36px 0 18px;
 }
 .pub-category:first-child { margin-top: 0; }
 .pub-item { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--faint); }
@@ -263,63 +173,39 @@ strong { font-weight: 700; }
 .pub-authors { font-size: 0.75rem; opacity: 0.45; }
 .pub-links { font-size: 0.75rem; margin-top: 6px; opacity: 0.7; }
 .pub-abstract {
-  display: none;
-  font-size: 0.82rem; opacity: 0.6; line-height: 1.75;
-  margin-top: 12px; padding: 14px 16px;
-  border-left: 1.5px solid var(--faint);
+  display: none; font-size: 0.82rem; opacity: 0.6; line-height: 1.75;
+  margin-top: 12px; padding: 14px 16px; border-left: 1.5px solid var(--faint);
 }
 .pub-item.open .pub-abstract,
 .pub-item.hov .pub-abstract { display: block; }
 
 /* skills */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px 32px;
-}
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
 .skill-group h3 {
   font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
   text-transform: uppercase; opacity: 0.4; margin-bottom: 8px;
 }
 .skill-group p { font-size: 0.84rem; opacity: 0.7; line-height: 1.6; }
-
-/* ─────────────────────────────
-   PANEL BACKDROP dim
-───────────────────────────── */
-#backdrop {
-  position: fixed; inset: 0; z-index: 9;
-  background: rgba(255,255,255,0);
-  pointer-events: none;
-  transition: background 0.7s ease;
-}
-#backdrop.dim {
-  background: rgba(255,255,255,0.45);
-  pointer-events: all;
-}
 </style>
 </head>
 <body>
 
-<!-- Orb canvas: full-page background -->
 <canvas id="orb-canvas"></canvas>
-
-<!-- Backdrop: subtle dim when panel open -->
 <div id="backdrop"></div>
 
-<!-- Hero layer -->
+<!-- Hero — click handlers set inline via onclick to avoid any scoping issues -->
 <div id="hero">
   <div class="hero-top">
     <div>
-      <div class="hero-name" id="site-title">Daniel Barta</div>
+      <div class="hero-name" onclick="closePanel()">Daniel Barta</div>
       <div class="hero-role">
         Electrical, Software &amp; Information Systems Engineer<br>
         Quantum Computing · Machine Learning · Neuro-Symbolic AI
       </div>
     </div>
     <div class="hero-contacts">
-      <a href="/cdn-cgi/l/email-protection#88ece9e6e1ede4a6eae9fafce9c8ffedeaa6eced"><span class="__cf_email__" data-cfemail="7511141b1c10195b1714070114350210175b1110">[email&#160;protected]</span></a><br>
-      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener">LinkedIn</a>
-      &nbsp;·&nbsp;
+      <a href="mailto:d.barta@web.de">Mail</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/daniel-a-barta" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
       <a href="/assets/daniel_barta_cv.pdf" target="_blank">CV</a>
     </div>
   </div>
@@ -329,25 +215,23 @@ strong { font-weight: 700; }
       <strong>About</strong>
       As an engineer driven by curiosity and innovation, I design and refine advanced systems bridging quantum computing and artificial intelligence — from diffusion-based circuit synthesis to neuro-symbolic autonomous decision frameworks. I thrive on translating abstract research into robust, real-world impact.
     </div>
-
     <div class="orb-nav">
-      <span class="cycling-label" id="lbl0" data-target="experience">Experience</span>
-      <span class="cycling-label" id="lbl1" data-target="publications">Publications</span>
-      <span class="cycling-label" id="lbl2" data-target="education">Education</span>
-      <span class="cycling-label" id="lbl3" data-target="skills">Skills</span>
+      <span class="cycling-label" id="lbl0" onclick="openPanel('experience')">Experience</span>
+      <span class="cycling-label" id="lbl1" onclick="openPanel('publications')">Publications</span>
+      <span class="cycling-label" id="lbl2" onclick="openPanel('education')">Education</span>
+      <span class="cycling-label" id="lbl3" onclick="openPanel('skills')">Skills</span>
     </div>
   </div>
 </div>
 
-<!-- Sliding content panel -->
+<!-- Panel -->
 <div id="panel">
   <div class="panel-inner">
     <div class="panel-header">
       <span class="panel-section-name" id="panel-title"></span>
-      <button class="panel-close" id="panel-close">&#x2715; Close</button>
+      <button class="panel-close" onclick="closePanel()">&#x2715;&nbsp; Close</button>
     </div>
 
-    <!-- Experience -->
     <section id="experience" class="content-section">
       <div class="exp-item">
         <h3>Working Student — Quantum Computing and AI</h3>
@@ -366,14 +250,14 @@ strong { font-weight: 700; }
         <ul>
           <li>Engineered automated model verification processes, enhancing testing efficiency and accuracy.</li>
           <li>Optimized engine database structures for improved data retrieval and analysis.</li>
-          <li>Analyzed driving behavior using Python and MATLAB, with algorithms from game theory and oversampling strategies.</li>
+          <li>Analyzed driving behavior using Python and MATLAB with game theory and oversampling strategies.</li>
         </ul>
       </div>
       <div class="exp-item">
         <h3>Student Assistant — IT &amp; EDV Support</h3>
         <p class="exp-meta">Ludwig-Maximilians-Universität Munich · Apr 2019 – Apr 2022</p>
         <ul>
-          <li>Provided dedicated IT support and system maintenance within an academic environment.</li>
+          <li>Provided IT support and system maintenance within an academic environment.</li>
         </ul>
       </div>
       <div class="exp-item">
@@ -381,36 +265,34 @@ strong { font-weight: 700; }
         <p class="exp-meta">Munich · Mar 2016 – Jan 2019</p>
         <ul>
           <li>Planned and organized conventions and cultural events for up to 100 attendees end-to-end.</li>
-          <li>Coordinated logistics, AV requirements, budgets, vendor contracts and sponsorships.</li>
+          <li>Coordinated logistics, AV, budgets, vendor contracts and sponsorships.</li>
           <li>Developed marketing strategies and promotional materials.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Publications -->
     <section id="publications" class="content-section">
       <p class="pub-category">Conference Papers</p>
       <div class="pub-item">
-        <p class="pub-title"><strong>Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</strong></p>
+        <p class="pub-title" onclick="this.closest('.pub-item').classList.toggle('open')"><strong>Leveraging Diffusion Models for Parameterized Quantum Circuit Generation</strong></p>
         <p class="pub-venue">Accepted · IEEE QCE '25</p>
         <div class="pub-abstract">We introduce a generative approach based on denoising diffusion models to synthesize parameterized quantum circuits (PQCs). Our model simultaneously generates circuit architectures and continuous gate parameters, demonstrating strong generalization across gate sets and qubit counts for GHZ state generation and QML classification tasks.</div>
         <p class="pub-authors">Daniel Barta; Darya Martyniuk; Johannes Jung; Adrian Paschke</p>
         <p class="pub-links"><a href="https://arxiv.org/abs/2505.20863" target="_blank" rel="noopener">arXiv:2505.20863 ↗</a></p>
       </div>
       <div class="pub-item">
-        <p class="pub-title"><strong>Surrogate Benchmark for Quantum Architecture Search</strong></p>
+        <p class="pub-title" onclick="this.closest('.pub-item').classList.toggle('open')"><strong>Surrogate Benchmark for Quantum Architecture Search</strong></p>
         <p class="pub-venue">Under review</p>
         <div class="pub-abstract">We present SQuASH (Surrogate Quantum Architecture Search Helper), a benchmark leveraging surrogate models for uniform comparison of QAS methods, considerably accelerating evaluation. We release code and the training dataset for reproducibility.</div>
         <p class="pub-authors">Darya Martyniuk; Johannes Jung; Daniel Barta; Adrian Paschke</p>
         <p class="pub-links">
-          <a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener">arXiv:2506.06762 ↗</a>
-          &nbsp;·&nbsp;
+          <a href="https://arxiv.org/abs/2506.06762" target="_blank" rel="noopener">arXiv:2506.06762 ↗</a> &nbsp;·&nbsp;
           <a href="https://github.com/SQuASH-bench/SQuASH" target="_blank" rel="noopener">GitHub ↗</a>
         </p>
       </div>
       <p class="pub-category">Journal / Book Chapters</p>
       <div class="pub-item">
-        <p class="pub-title"><strong>Ensuring Rule Compliance in Autonomous Driving</strong></p>
+        <p class="pub-title" onclick="this.closest('.pub-item').classList.toggle('open')"><strong>Ensuring Rule Compliance in Autonomous Driving</strong></p>
         <p class="pub-venue">Lecture Notes in Computer Science (Springer), 2025</p>
         <div class="pub-abstract">We propose a legally-guided automated decision-making system (LAD) using language models to dynamically retrieve traffic rules and a symbolic solver to make decisions — achieving more accurate, interpretable, and traceable rule-compliant behaviour than pure language models.</div>
         <p class="pub-authors">Ya Wang; Daniel Barta; Julian Hesse; Philip Buchwald; Adrian Paschke</p>
@@ -418,7 +300,6 @@ strong { font-weight: 700; }
       </div>
     </section>
 
-    <!-- Education -->
     <section id="education" class="content-section">
       <div class="edu-item">
         <h3>M.Sc. Electrical and Information Engineering</h3>
@@ -432,7 +313,6 @@ strong { font-weight: 700; }
       </div>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="content-section">
       <div class="skills-grid">
         <div class="skill-group">
@@ -441,11 +321,11 @@ strong { font-weight: 700; }
         </div>
         <div class="skill-group">
           <h3>ML &amp; AI</h3>
-          <p>PyTorch, TensorFlow<br>Neuro-symbolic Systems<br>Diffusion Models<br>GNNs</p>
+          <p>PyTorch, TensorFlow<br>Neuro-symbolic Systems<br>Diffusion Models, GNNs</p>
         </div>
         <div class="skill-group">
           <h3>Quantum Computing</h3>
-          <p>Qiskit, PennyLane, Cirq<br>Circuit Synthesis<br>PQC Optimization<br>VQAs</p>
+          <p>Qiskit, PennyLane, Cirq<br>Circuit Synthesis<br>PQC Optimization, VQAs</p>
         </div>
         <div class="skill-group">
           <h3>Tools</h3>
@@ -453,20 +333,41 @@ strong { font-weight: 700; }
         </div>
         <div class="skill-group">
           <h3>Languages</h3>
-          <p>German (native)<br>English (fluent)<br>Romanian (B2)<br>Italian (B1)</p>
+          <p>German (native)<br>English (fluent)<br>Romanian (B2), Italian (B1)</p>
         </div>
       </div>
     </section>
-
   </div>
 </div>
 
-<!-- ORB ENGINE -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// ── Panel functions — global so onclick= attributes work ──
+function openPanel(target) {
+  var names = {experience:'Experience',publications:'Publications',education:'Education',skills:'Skills'};
+  document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('visible'); });
+  var sec = document.getElementById(target);
+  if (!sec) return;
+  sec.classList.add('visible');
+  document.getElementById('panel-title').textContent = names[target] || target;
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('backdrop').classList.add('dim');
+  document.getElementById('hero').classList.add('out');
+  document.getElementById('panel').scrollTop = 0;
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('dim');
+  document.getElementById('hero').classList.remove('out');
+}
+
+document.getElementById('backdrop').addEventListener('click', closePanel);
+
+// ── Orb ──
 (function(){
-  const canvas = document.getElementById('orb-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, CX, CY, R;
+  var canvas = document.getElementById('orb-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, CX, CY, R;
 
   function resize() {
     W = canvas.width  = window.innerWidth;
@@ -477,34 +378,33 @@ strong { font-weight: 700; }
   resize();
   window.addEventListener('resize', resize);
 
-  const N = 380, GA = Math.PI*(3-Math.sqrt(5));
-  const dots = [];
-  for(let i=0;i<N;i++){
-    const y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), t=GA*i;
-    dots.push({x:Math.cos(t)*r, y, z:Math.sin(t)*r, baseR:1.3+Math.random()*1.1, pulse:0});
+  var N = 380, GA = Math.PI*(3-Math.sqrt(5));
+  var dots = [];
+  for(var i=0;i<N;i++){
+    var y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), t=GA*i;
+    dots.push({x:Math.cos(t)*r, y:y, z:Math.sin(t)*r, baseR:1.3+Math.random()*1.1, pulse:0});
   }
 
-  const pulses=[];
+  var pulses=[];
   function spawn(){ pulses.push({o:Math.floor(Math.random()*N), age:0}); }
   spawn(); setInterval(spawn, 2000);
 
-  // mouse parallax — stronger
-  let mx=0, my=0, tmx=0, tmy=0;
-  window.addEventListener('mousemove', e=>{
-    tmx = (e.clientX/window.innerWidth  - 0.5) * 0.75;
-    tmy = (e.clientY/window.innerHeight - 0.5) * 0.50;
+  var mx=0, my=0, tmx=0, tmy=0;
+  window.addEventListener('mousemove', function(e){
+    tmx = (e.clientX/window.innerWidth  - 0.5) * 1.8;
+    tmy = (e.clientY/window.innerHeight - 0.5) * 1.2;
   });
 
-  let rotY=0, tRotY=0;
-  const ry3=(x,y,z,a)=>{const c=Math.cos(a),s=Math.sin(a);return{x:c*x+s*z,y,z:-s*x+c*z};};
-  const rx3=(x,y,z,a)=>{const c=Math.cos(a),s=Math.sin(a);return{x,y:c*y-s*z,z:s*y+c*z};};
+  var rotY=0, tRotY=0;
+  function ry3(x,y,z,a){var c=Math.cos(a),s=Math.sin(a);return{x:c*x+s*z,y:y,z:-s*x+c*z};}
+  function rx3(x,y,z,a){var c=Math.cos(a),s=Math.sin(a);return{x:x,y:c*y-s*z,z:s*y+c*z};}
 
-  // label cycling — hover-aware, restarts from hovered item
-  const lbls=[0,1,2,3].map(i=>document.getElementById('lbl'+i));
-  let li=0, paused=false, cycleTimer=null;
+  // label cycling
+  var lbls=[0,1,2,3].map(function(i){return document.getElementById('lbl'+i);});
+  var li=0, paused=false, cycleTimer=null;
 
   function setActive(i){
-    lbls.forEach(l=>l.classList.remove('visible'));
+    lbls.forEach(function(l){l.classList.remove('visible');});
     lbls[i].classList.add('visible');
     li=i;
   }
@@ -512,140 +412,83 @@ strong { font-weight: 700; }
 
   function startCycle(){
     clearInterval(cycleTimer);
-    cycleTimer=setInterval(()=>{
+    cycleTimer=setInterval(function(){
       if(!paused) setActive((li+1)%4);
     },2000);
   }
   startCycle();
 
-  lbls.forEach((lbl,i)=>{
-    lbl.addEventListener('mouseenter',()=>{
-      paused=true;
-      setActive(i);
+  lbls.forEach(function(lbl, i){
+    lbl.addEventListener('mouseenter', function(){
+      paused=true; setActive(i);
     });
-    lbl.addEventListener('mouseleave',()=>{
-      paused=false;
-      // restart timer from this index so next step is li+1
-      startCycle();
+    lbl.addEventListener('mouseleave', function(){
+      paused=false; startCycle();
     });
-
   });
 
-  let last=performance.now();
+  var last=performance.now();
   function draw(ts){
-    const dt=(ts-last)/1000; last=ts;
-    mx += (tmx - mx) * Math.min(1, dt*5);
-    my += (tmy - my) * Math.min(1, dt*5);
+    var dt=(ts-last)/1000; last=ts;
+    mx += (tmx-mx)*Math.min(1,dt*5);
+    my += (tmy-my)*Math.min(1,dt*5);
     tRotY += dt*0.20;
-    rotY += (tRotY + mx - rotY) * Math.min(1, dt*4);
-    const rX = 0.14 + my + Math.sin(ts*0.00022)*0.06;
+    rotY += (tRotY+mx-rotY)*Math.min(1,dt*4);
+    var rX=0.14+my+Math.sin(ts*0.00022)*0.06;
 
-    for(let i=pulses.length-1;i>=0;i--){
+    for(var i=pulses.length-1;i>=0;i--){
       pulses[i].age+=dt*0.28;
       if(pulses[i].age>1) pulses.splice(i,1);
     }
-    dots.forEach(d=>d.pulse=0);
-    pulses.forEach(p=>{
-      const o=dots[p.o];
-      dots.forEach(d=>{
-        const dp=Math.max(-1,Math.min(1,o.x*d.x+o.y*d.y+o.z*d.z));
-        const diff=Math.abs(Math.acos(dp)/Math.PI-p.age);
+    dots.forEach(function(d){d.pulse=0;});
+    pulses.forEach(function(p){
+      var o=dots[p.o];
+      dots.forEach(function(d){
+        var dp=Math.max(-1,Math.min(1,o.x*d.x+o.y*d.y+o.z*d.z));
+        var diff=Math.abs(Math.acos(dp)/Math.PI-p.age);
         if(diff<0.05) d.pulse=Math.max(d.pulse,(1-diff/0.05)*(1-p.age));
       });
     });
 
     ctx.clearRect(0,0,W,H);
 
-    const proj=dots.map(d=>{
-      let v=ry3(d.x,d.y,d.z,rotY); v=rx3(v.x,v.y,v.z,rX);
-      return{sx:CX+v.x*R, sy:CY+v.y*R, z:v.z, d};
+    var proj=dots.map(function(d){
+      var v=ry3(d.x,d.y,d.z,rotY); v=rx3(v.x,v.y,v.z,rX);
+      return{sx:CX+v.x*R, sy:CY+v.y*R, z:v.z, d:d};
     });
-    proj.sort((a,b)=>a.z-b.z);
+    proj.sort(function(a,b){return a.z-b.z;});
 
-    // latitude rings
     ctx.save(); ctx.translate(CX,CY); ctx.rotate(rotY*0.4);
-    [-0.5,0,0.5].forEach((ry,i)=>{
-      const rr=Math.sqrt(1-ry*ry)*R;
+    [-0.5,0,0.5].forEach(function(ry,i){
+      var rr=Math.sqrt(1-ry*ry)*R;
       ctx.beginPath();
       ctx.ellipse(0,ry*R,rr,rr*Math.abs(Math.sin(rX+i*0.35)),0,0,Math.PI*2);
-      ctx.strokeStyle=`rgba(178,34,34,${0.04+i*0.012})`;
+      ctx.strokeStyle='rgba(178,34,34,'+(0.04+i*0.012)+')';
       ctx.lineWidth=0.5; ctx.stroke();
     });
     ctx.restore();
 
-    proj.forEach(p=>{
-      const t=(p.z+1)/2, pulse=p.d.pulse;
-      const alpha=Math.min(1, 0.05+t*0.68+pulse*0.72);
-      const size=p.d.baseR*(0.28+t*0.76)+pulse*3.5;
-      const rv=Math.round(100+t*78+pulse*42), gv=Math.round(t*4);
-
+    proj.forEach(function(p){
+      var t=(p.z+1)/2, pulse=p.d.pulse;
+      var alpha=Math.min(1,0.05+t*0.68+pulse*0.72);
+      var size=p.d.baseR*(0.28+t*0.76)+pulse*3.5;
+      var rv=Math.round(100+t*78+pulse*42), gv=Math.round(t*4);
       if(pulse>0.012){
-        const gr=ctx.createRadialGradient(p.sx,p.sy,0,p.sx,p.sy,size*3.5);
-        gr.addColorStop(0, `rgba(${rv},${gv},${gv},${alpha})`);
-        gr.addColorStop(0.4,`rgba(${rv},${gv},${gv},${alpha*0.28})`);
-        gr.addColorStop(1, `rgba(${rv},${gv},${gv},0)`);
+        var gr=ctx.createRadialGradient(p.sx,p.sy,0,p.sx,p.sy,size*3.5);
+        gr.addColorStop(0,'rgba('+rv+','+gv+','+gv+','+alpha+')');
+        gr.addColorStop(0.4,'rgba('+rv+','+gv+','+gv+','+(alpha*0.28)+')');
+        gr.addColorStop(1,'rgba('+rv+','+gv+','+gv+',0)');
         ctx.beginPath(); ctx.arc(p.sx,p.sy,size*3.5,0,Math.PI*2);
         ctx.fillStyle=gr; ctx.fill();
       }
       ctx.beginPath(); ctx.arc(p.sx,p.sy,size,0,Math.PI*2);
-      ctx.fillStyle=`rgba(${rv},${gv},${gv},${alpha})`;
+      ctx.fillStyle='rgba('+rv+','+gv+','+gv+','+alpha+')';
       ctx.fill();
     });
-
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
 })();
 </script>
-
-<!-- PANEL / NAV LOGIC -->
-<script>
-  const panel    = document.getElementById('panel');
-  const backdrop = document.getElementById('backdrop');
-  const hero     = document.getElementById('hero');
-  const panelTitle = document.getElementById('panel-title');
-  const sections = document.querySelectorAll('.content-section');
-  const closeBtn = document.getElementById('panel-close');
-  const siteTitle= document.getElementById('site-title');
-
-  const names = {
-    experience:'Experience', publications:'Publications',
-    education:'Education', skills:'Skills'
-  };
-
-  function openPanel(target) {
-    sections.forEach(s=>s.classList.remove('visible'));
-    const sec = document.getElementById(target);
-    if(!sec) return;
-    sec.classList.add('visible');
-    panelTitle.textContent = names[target] || target;
-    panel.classList.add('open');
-    backdrop.classList.add('dim');
-    hero.classList.add('out');
-    panel.scrollTop = 0;
-  }
-
-  function closePanel() {
-    panel.classList.remove('open');
-    backdrop.classList.remove('dim');
-    hero.classList.remove('out');
-  }
-
-  window.__openSection = openPanel;
-
-  // Wire label clicks here where openPanel is defined
-  document.querySelectorAll('.cycling-label').forEach(lbl => {
-    lbl.addEventListener('click', () => {
-      const target = lbl.getAttribute('data-target');
-      if(target) openPanel(target);
-    });
-  });
-
-  closeBtn.addEventListener('click', closePanel);
-  backdrop.addEventListener('click', closePanel);
-  siteTitle.addEventListener('click', closePanel);
-
-  // pub abstract hover/click
-  document.querySelectorAll('.pub-item').forEach(item=>{
-    const t=item.querySelector('.pub-title');
-    t.addEventListener('click',()=>{ const o=item.classList.toggle('open'); if(!o) item.
+</body>
+</html>
