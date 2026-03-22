@@ -106,6 +106,7 @@ a:hover { color: var(--red2); text-decoration: underline; }
   transition: transform 0.7s cubic-bezier(.22,1,.36,1);
   overflow-y: auto; overflow-x: hidden;
   scrollbar-width: thin; scrollbar-color: var(--faint) transparent;
+  -webkit-overflow-scrolling: touch;
 }
 #panel.open { transform: translateX(0); }
 
@@ -123,6 +124,9 @@ a:hover { color: var(--red2); text-decoration: underline; }
   color: var(--red); font-family: var(--font);
   font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
   opacity: 0.4; padding: 4px 0; transition: opacity 0.2s;
+  /* larger tap target */
+  min-width: 44px; min-height: 44px;
+  display: flex; align-items: center; justify-content: flex-end;
 }
 .panel-close:hover { opacity: 1; }
 
@@ -176,8 +180,7 @@ strong { font-weight: 700; }
   display: none; font-size: 0.82rem; opacity: 0.6; line-height: 1.75;
   margin-top: 12px; padding: 14px 16px; border-left: 1.5px solid var(--faint);
 }
-.pub-item.open .pub-abstract,
-.pub-item.hov .pub-abstract { display: block; }
+.pub-item.open .pub-abstract { display: block; }
 
 /* skills */
 .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
@@ -186,6 +189,88 @@ strong { font-weight: 700; }
   text-transform: uppercase; opacity: 0.4; margin-bottom: 8px;
 }
 .skill-group p { font-size: 0.84rem; opacity: 0.7; line-height: 1.6; }
+
+/* ══════════════════════════════
+   MOBILE  ( ≤ 600px )
+══════════════════════════════ */
+@media (max-width: 600px) {
+  /* hero stacks vertically, scrollable */
+  html, body { overflow: hidden; }
+
+  #hero {
+    padding: 32px 28px 28px;
+    justify-content: flex-start;
+    gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* top row: name left, contacts below name */
+  .hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 0;
+  }
+  .hero-name { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .hero-role  { font-size: 0.75rem; margin-top: 5px; }
+  .hero-contacts {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    opacity: 0.55;
+  }
+
+  /* orb sits in the middle of the screen — push bio & nav down */
+  .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    margin-top: auto;
+    padding-bottom: 32px;
+  }
+
+  /* orb takes up the middle third — achieved via spacer */
+  .orb-spacer {
+    display: block;
+    height: 38vh;   /* pushes content past where orb lives */
+  }
+
+  .hero-bio { max-width: 100%; font-size: 0.85rem; }
+  .hero-bio strong { font-size: 0.58rem; }
+
+  /* nav: row of labels, centred, all visible at once */
+  .orb-nav {
+    text-align: left;
+    min-width: unset;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+  }
+  .cycling-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0;
+    margin-right: 20px;
+    opacity: 0.35;
+  }
+  .cycling-label.visible { opacity: 1; letter-spacing: 0.18em; }
+  /* on mobile ALL labels are shown at low opacity but tappable */
+  .cycling-label { opacity: 0.4 !important; }
+  .cycling-label.visible { opacity: 1 !important; }
+  .cycling-label::after { margin-left: 0; }
+
+  /* panel full-width on mobile */
+  #panel { width: 100vw; border-left: none; }
+  .panel-inner { padding: 32px 24px 60px; }
+  .panel-header { margin-bottom: 32px; }
+
+  /* skills single col on mobile */
+  .skills-grid { grid-template-columns: 1fr; gap: 22px; }
+}
 </style>
 </head>
 <body>
@@ -193,7 +278,6 @@ strong { font-weight: 700; }
 <canvas id="orb-canvas"></canvas>
 <div id="backdrop"></div>
 
-<!-- Hero — click handlers set inline via onclick to avoid any scoping issues -->
 <div id="hero">
   <div class="hero-top">
     <div>
@@ -209,6 +293,9 @@ strong { font-weight: 700; }
       <a href="/assets/daniel_barta_cv.pdf" target="_blank">CV</a>
     </div>
   </div>
+
+  <!-- spacer only visible on mobile, reserves space for the orb -->
+  <div class="orb-spacer"></div>
 
   <div class="hero-bottom">
     <div class="hero-bio">
@@ -341,7 +428,7 @@ strong { font-weight: 700; }
 </div>
 
 <script>
-// ── Panel functions — global so onclick= attributes work ──
+// ── Panel ──
 function openPanel(target) {
   var names = {experience:'Experience',publications:'Publications',education:'Education',skills:'Skills'};
   document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('visible'); });
@@ -353,14 +440,17 @@ function openPanel(target) {
   document.getElementById('backdrop').classList.add('dim');
   document.getElementById('hero').classList.add('out');
   document.getElementById('panel').scrollTop = 0;
+  // push orb left and shrink
+  window.orbTargetX = -window.innerWidth * 0.18;
+  window.orbTargetScale = 0.72;
 }
-
 function closePanel() {
   document.getElementById('panel').classList.remove('open');
   document.getElementById('backdrop').classList.remove('dim');
   document.getElementById('hero').classList.remove('out');
+  window.orbTargetX = 0;
+  window.orbTargetScale = 1;
 }
-
 document.getElementById('backdrop').addEventListener('click', closePanel);
 
 // ── Orb ──
@@ -368,15 +458,22 @@ document.getElementById('backdrop').addEventListener('click', closePanel);
   var canvas = document.getElementById('orb-canvas');
   var ctx = canvas.getContext('2d');
   var W, H, CX, CY, R;
+  var isMobile = window.innerWidth <= 600;
 
   function resize() {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
     CX = W/2; CY = H/2;
-    R  = Math.min(W, H) * 0.27;
+    isMobile = W <= 600;
+    // on mobile orb is slightly larger relative to screen
+    R = Math.min(W, H) * (isMobile ? 0.38 : 0.33);
   }
   resize();
   window.addEventListener('resize', resize);
+
+  window.orbTargetX = 0;
+  window.orbTargetScale = 1;
+  var orbX = 0, orbScale = 1;
 
   var N = 380, GA = Math.PI*(3-Math.sqrt(5));
   var dots = [];
@@ -390,10 +487,28 @@ document.getElementById('backdrop').addEventListener('click', closePanel);
   spawn(); setInterval(spawn, 2000);
 
   var mx=0, my=0, tmx=0, tmy=0;
+
+  // Mouse (desktop)
   window.addEventListener('mousemove', function(e){
     tmx = (e.clientX/window.innerWidth  - 0.5) * 1.8;
     tmy = (e.clientY/window.innerHeight - 0.5) * 1.2;
   });
+
+  // Touch (mobile) — tilt orb based on touch position
+  window.addEventListener('touchmove', function(e){
+    var t = e.touches[0];
+    tmx = (t.clientX/window.innerWidth  - 0.5) * 1.4;
+    tmy = (t.clientY/window.innerHeight - 0.5) * 0.9;
+  }, {passive: true});
+
+  // Device orientation (mobile gyroscope) — feels magical
+  window.addEventListener('deviceorientation', function(e){
+    if (e.gamma !== null && e.beta !== null) {
+      // gamma: left-right tilt (-90 to 90), beta: front-back (-180 to 180)
+      tmx = Math.max(-1, Math.min(1, e.gamma / 30)) * 1.2;
+      tmy = Math.max(-1, Math.min(1, (e.beta - 30) / 40)) * 0.8;
+    }
+  }, {passive: true});
 
   var rotY=0, tRotY=0;
   function ry3(x,y,z,a){var c=Math.cos(a),s=Math.sin(a);return{x:c*x+s*z,y:y,z:-s*x+c*z};}
@@ -450,19 +565,24 @@ document.getElementById('backdrop').addEventListener('click', closePanel);
       });
     });
 
+    orbX    += (window.orbTargetX     - orbX)     * Math.min(1, dt * 4);
+    orbScale+= (window.orbTargetScale  - orbScale) * Math.min(1, dt * 4);
+    var drawCX = CX + orbX;
+    var drawR  = R  * orbScale;
+
     ctx.clearRect(0,0,W,H);
 
     var proj=dots.map(function(d){
       var v=ry3(d.x,d.y,d.z,rotY); v=rx3(v.x,v.y,v.z,rX);
-      return{sx:CX+v.x*R, sy:CY+v.y*R, z:v.z, d:d};
+      return{sx:drawCX+v.x*drawR, sy:CY+v.y*drawR, z:v.z, d:d};
     });
     proj.sort(function(a,b){return a.z-b.z;});
 
-    ctx.save(); ctx.translate(CX,CY); ctx.rotate(rotY*0.4);
+    ctx.save(); ctx.translate(drawCX,CY); ctx.rotate(rotY*0.4);
     [-0.5,0,0.5].forEach(function(ry,i){
-      var rr=Math.sqrt(1-ry*ry)*R;
       ctx.beginPath();
-      ctx.ellipse(0,ry*R,rr,rr*Math.abs(Math.sin(rX+i*0.35)),0,0,Math.PI*2);
+      var rr=Math.sqrt(1-ry*ry)*drawR;
+      ctx.ellipse(0,ry*drawR,rr,rr*Math.abs(Math.sin(rX+i*0.35)),0,0,Math.PI*2);
       ctx.strokeStyle='rgba(178,34,34,'+(0.04+i*0.012)+')';
       ctx.lineWidth=0.5; ctx.stroke();
     });
